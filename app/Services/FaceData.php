@@ -11,22 +11,12 @@ class FaceData
     {
         $user = (new EloquentApiUserRepository())->findWithFaceData($user_id);
 
-        $users = ApiUser::query()
-            ->inRandomOrder()
-            ->where('id', '<>', $user_id)
-            ->limit($limit - 1)
-            ->with('photos')
-            ->get();
-        $users->push($user);
 
-        $users = $users->random($users->count());
-
-        foreach ($users as $user) {
-            $face_models[] = [
-                'face_token' => $this->generateFaceToken($user->id, $user->email, $user->last_login),
-                'description' => $this->modelsToJSON($user->photos()->select('model')->get()),
-            ];
-        }
+        $face_models[] = [
+            'full_name' => $user->last_name . ' ' . $user->first_name,
+            'face_token' => $this->generateFaceToken($user->id, $user->email, $user->last_login),
+            'description' => $this->modelsToJSON($user->photos()->select('model')->get()),
+        ];
 
         return $face_models;
     }
