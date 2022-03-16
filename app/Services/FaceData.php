@@ -2,15 +2,13 @@
 
 namespace App\Services;
 
-use App\Models\ApiUser;
 use App\Repository\Admin\ApiUser\EloquentApiUserRepository;
 
 class FaceData
 {
-    public function getRandomFaceModels($user_id, $limit = 10)
+    public function getFaceModels($user_id)
     {
         $user = (new EloquentApiUserRepository())->findWithFaceData($user_id);
-
 
         $face_models[] = [
             'full_name' => $user->last_name . ' ' . $user->first_name,

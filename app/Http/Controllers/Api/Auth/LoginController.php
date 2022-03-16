@@ -381,7 +381,7 @@ class LoginController extends BaseController
 
         $user = Auth::guard('api')->user();
 
-        return $this->success((new FaceData())->getRandomFaceModels($user->id), 'Retrieved successfully');
+        return $this->success((new FaceData())->getFaceModels($user->id), 'Retrieved successfully');
     }
 
     public function authenticate(Request $request)

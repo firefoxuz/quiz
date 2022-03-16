@@ -99,6 +99,7 @@ class EloquentApiUserRepository implements IUserRepository
             'phone',
             'email',
             'registered_at',
+            'last_login'
         ])
             ->where('id', $id)
             ->with('photos')
