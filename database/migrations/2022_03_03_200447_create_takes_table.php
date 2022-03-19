@@ -17,9 +17,8 @@ class CreateTakesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('quiz_id');
-            $table->tinyInteger('score')->default(0);
+            $table->smallInteger('correct_answers')->default(0);
             $table->tinyInteger('status')->default(0);
-            $table->tinyInteger('published')->default(0);
             $table->timestamp('starts_at')->nullable();
             $table->timestamp('ends_at')->nullable();
             $table->text('content')->nullable();

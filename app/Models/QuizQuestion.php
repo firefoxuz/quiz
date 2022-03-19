@@ -32,4 +32,10 @@ class QuizQuestion extends Model
         return $this->hasMany(QuizAnswer::class, 'question_id', 'id');
     }
 
+
+    public function take_answers()
+    {
+        return $this->hasMany(QuizAnswer::class, 'question_id', 'id');
+    }
+
 }

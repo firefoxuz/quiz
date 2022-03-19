@@ -22,6 +22,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::put('/', [App\Http\Controllers\Api\UserController::class, 'update']);
     });
     Route::apiResource('/quizzes', App\Http\Controllers\Api\Quiz\QuizController::class, ['only' => ['index', 'show']]);
-
     Route::post('/logout', ['App\Http\Controllers\Api\Auth\LogoutController', 'logout']);
+    Route::get('/quizzes/{quiz_id}/start', [App\Http\Controllers\Api\Quiz\TakeController::class, 'start']);
+    Route::post('/quizzes/{quiz_id}/finish', [App\Http\Controllers\Api\Quiz\TakeController::class, 'finish']);
 });

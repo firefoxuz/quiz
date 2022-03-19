@@ -1,5 +1,6 @@
 <?php
 
+use App\Services\RandomQuestion;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,11 +38,15 @@ Route::group(['middleware' => ['auth', 'disable.caching.on.local']], function ()
 
     // Api Users routes
 
-    Route::get('/api_users/face_data/{user_id}', ['App\Http\Controllers\Admin\User\FaceDataController','show'])->name('api_users.face_data.show');
+    Route::get('/api_users/face_data/{user_id}', ['App\Http\Controllers\Admin\User\FaceDataController', 'show'])->name('api_users.face_data.show');
 
     //Resource routes
     Route::resource('/quizzes', 'App\Http\Controllers\Admin\Quiz\QuizController');
     Route::resource('/user', 'App\Http\Controllers\Admin\User\UserController', ['only' => ['index', 'create']]);
-    Route::resource('/api_users', 'App\Http\Controllers\Admin\User\ApiUserController', ['only' => ['index', 'create', 'show', ]]);
+    Route::resource('/api_users', 'App\Http\Controllers\Admin\User\ApiUserController', ['only' => ['index', 'create', 'show',]]);
     Route::resource('/face_api', 'App\Http\Controllers\Admin\User\FaceDataController', ['only' => ['index', 'create']]);
+});
+
+Route::get('/test', function () {
+    return (new RandomQuestion)->getRandomQuestion(1, 10);
 });

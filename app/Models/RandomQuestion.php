@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class TakeAnswer extends Model
+class RandomQuestion extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     protected $fillable = [
         'take_id',
-        'question_id',
-        'answer_id',
-        'content',
+        'quiz_question_id'
     ];
 }

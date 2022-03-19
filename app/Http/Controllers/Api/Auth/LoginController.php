@@ -375,6 +375,7 @@ class LoginController extends BaseController
             'password' => 'required|string|min:6'
         ]);
 
+
         if (!Auth::guard('api')->attempt($attr)) {
             return $this->error('Credentials not match', 401);
         }

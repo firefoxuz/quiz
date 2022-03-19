@@ -17,8 +17,7 @@ class CreateTakeAnswersTable extends Migration
             $table->id();
             $table->unsignedBigInteger('take_id');
             $table->unsignedBigInteger('question_id');
-            $table->unsignedBigInteger('answer_id');
-            $table->tinyInteger('active')->default(0);
+            $table->unsignedBigInteger('answer_id')->nullable();
             $table->text('content')->nullable();
             $table->timestamps();
         });
