@@ -70,7 +70,7 @@ class EloquentFaceDataRepository implements IUserRepository
         $user = $this->find($id);
 
         if (!$user->delete()) {
-            throw new \Exception('can not delete a user');
+            throw new \Exception('can not delete a model');
         }
 
         return $user;
@@ -84,6 +84,11 @@ class EloquentFaceDataRepository implements IUserRepository
     public function find($id)
     {
         return UserFaceData::query()->findOrFail($id);
+    }
+
+    public function findByUserId($userId)
+    {
+        return UserFaceData::query()->where('user_id', $userId)->first();
     }
 
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
 use App\Models\ApiUser;
 use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
@@ -26,6 +27,7 @@ use Illuminate\Http\Request;
  *              @OA\Property(property="first_name", type="string", example="Jackson"),
  *              @OA\Property(property="last_name", type="string", example="Hills"),
  *              @OA\Property(property="phone", type="string", example="998979991122"),
+ *              @OA\Property(property="photo", type="string|null", example="http://quiz.uz/photos/U7BP95sAzCiO3ApqLDq2TWV8cCXTAT7Rj2Ox6GLG.jpg"),
  *              @OA\Property(property="email", type="string", format="email" , example="jack@gmail.com"),
  *              @OA\Property(property="last_login", type="string", format="date" , example="2022-03-03 09:15:17"),
  *              @OA\Property(property="registered_at", type="string", format="date" , example="2022-03-01 09:15:17"),
@@ -86,7 +88,6 @@ use Illuminate\Http\Request;
  *     ),
  * )
  */
-
 class UserController extends Controller
 {
     use ApiResponser;
@@ -98,7 +99,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return $this->success(auth()->user());
+        return $this->success((new UserResource(auth()->user()))->toArray(request()));
     }
 
 

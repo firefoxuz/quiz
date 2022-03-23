@@ -30,7 +30,7 @@ class TakeAnswer
         return Model::insert($this->prepareAttributes());
     }
 
-    private function prepareAttributes()
+    private function prepareAttributes(): array
     {
         $attr = [];
         foreach ($this->answers as $answer) {
@@ -38,7 +38,7 @@ class TakeAnswer
                 $attr[] = [
                     'take_id' => $this->take_id,
                     'question_id' => $answer['question_id'],
-                    'answer_id' => $answer['answer_id'] ?: null,
+                    'answer_id' => $answer['answer_id'] ?? null,
                     'content' => $answer['content'] ?? null,
                 ];
             }
