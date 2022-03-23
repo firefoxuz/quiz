@@ -14,7 +14,210 @@ use App\Services\TakeAnswer;
 use App\Traits\ApiResponser;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
+
+/**
+ * @OA\Schemas (
+ *   @OA\Schema(
+ *     schema="QuizStart",
+ *     type="object",
+ *     example={
+ *        "status": "success",
+ *        "message": null,
+ *        "data": {
+ *            "take": {
+ *                "quiz_id": "1",
+ *                "user_id": 1,
+ *                "status": 1,
+ *                "content": "",
+ *                "starts_at": "2022-03-23 21:35:06",
+ *                "ends_at": "2022-03-23 22:05:06",
+ *                "updated_at": "2022-03-23T16:35:06.000000Z",
+ *                "created_at": "2022-03-23T16:35:06.000000Z",
+ *                "id": 10
+ *            },
+ *            "questions": {
+ *                {
+ *                    "id": 4,
+ *                    "type_id": 2,
+ *                    "type": "Input",
+ *                    "content": "5 + 6 = ?"
+ *                },
+ *                {
+ *                    "id": 2,
+ *                    "type_id": 1,
+ *                    "type": "Single Choice",
+ *                    "content": "20 + 6 = ?",
+ *                    "answers": {
+ *                        {
+ *                            "id": 2,
+ *                            "content": "26"
+ *                        },
+ *                        {
+ *                            "id": 3,
+ *                            "content": "20"
+ *                        },
+ *                        {
+ *                            "id": 4,
+ *                            "content": "31"
+ *                        },
+ *                        {
+ *                            "id": 5,
+ *                            "content": "25"
+ *                        }
+ *                    }
+ *                },
+ *                {
+ *                    "id": 1,
+ *                    "type_id": 1,
+ *                    "type": "Single Choice",
+ *                    "content": "5 + 6 = ?",
+ *                    "answers": {
+ *                        {
+ *                            "id": 6,
+ *                            "content": "11"
+ *                        },
+ *                        {
+ *                            "id": 7,
+ *                            "content": "12"
+ *                        },
+ *                        {
+ *                            "id": 8,
+ *                            "content": "14"
+ *                        }
+ *                    }
+ *                }
+ *            }
+ *        }
+ *      }
+ *      ),
+ *  @OA\Schema(
+ *   schema="QuizFinishBody",
+ *   type="object",
+ *  example={
+ *	    "take_id": 11,
+ *	    "answers" : {
+ *	        {
+ *	            "question_id": 1,
+ *	            "answer_id": 6,
+ *	        },
+ *	        {
+ *	            "question_id": 2,
+ *	            "answer_id": 2
+ *	        },
+ *	         {
+ *	            "question_id": 3,
+ *	            "content": "hello world"
+ *	        }
+ *	    }
+ * }
+ * ),
+ *   ),
+ * @OAS\SecurityScheme(
+ *      securityScheme="bearer_token",
+ *      type="http",
+ *      scheme="bearer"
+ * ),
+
+ *  @OA\Post(
+ *     summary="Finish specific quiz",
+ *     path="/api/quizzes/{id}/finish",
+ *     description="Finish specific quiz",
+ *     @OA\Parameter(
+ *      name="id",
+ *      in="path",
+ *      @OA\Schema(type="integer"),
+ *      required=true,
+ *     ),
+ *     tags={"Quiz"},
+ *     security={{"sanctum":{}}},
+ *     @OA\RequestBody(
+ *          @OA\JsonContent(
+ *              type="object",
+ *              ref="#/components/schemas/QuizFinishBody"
+ *      ),
+ *     ),
+ *     @OA\Response(
+ *      response="200",
+ *      description="You have no attempts",
+ *          @OA\JsonContent(
+ *         type="object",
+ *          example={
+ *	    "status": "success",
+ *	    "message": null,
+ *	    "data": {
+ *	        "id": 11,
+ *	        "user_id": 1,
+ *	        "quiz_id": 1,
+ *	        "correct_answers": 2,
+ *	        "status": 2,
+ *	        "starts_at": "2022-03-23 22:19:00",
+ *	        "ends_at": "2022-03-23 22:49:00",
+ *	        "content": "",
+ *	        "created_at": "2022-03-23T17:19:00.000000Z",
+ *	        "updated_at": "2022-03-23T17:19:15.000000Z"
+ *	    }
+ *        }
+ *          ),
+ *      ),
+ *     @OA\Response(
+ *      response="404",
+ *      description="You have no attempts",
+ *          @OA\JsonContent(
+ *              @OA\Property(property="status", type="string", example="error"),
+ *              @OA\Property(property="message", type="string", example="Quiz allready has finished"),
+ *              @OA\Property(property="data", type="null", example="null")
+ *          ),
+ *      ),
+ * ),
+ * @OA\Get(
+ *     summary="Start specific quiz",
+ *     path="/api/quizzes/{id}/start",
+ *     description="Start specific quiz",
+ *     @OA\Parameter(
+ *          name="id",
+ *          in="path",
+ *          @OA\Schema(type="integer"),
+ *          required=true,
+ *     ),
+ *     tags={"Quiz"},
+ *     security={{"sanctum":{}}},
+ *     @OA\Response(
+ *      response="200",
+ *      description="Successful",
+ *          @OA\JsonContent(
+ *              type="object",
+ *              ref="#/components/schemas/QuizStart"
+ *          ),
+ *      ),
+ *     @OA\Response(
+ *      response="404",
+ *      description="You have no attempts",
+ *          @OA\JsonContent(
+ *              @OA\Property(property="status", type="string", example="error"),
+ *              @OA\Property(property="message", type="string", example="You have no attempts"),
+ *              @OA\Property(property="data", type="null", example="null")
+ *          ),
+ *      ),
+ *     @OA\Response(
+ *      response="403",
+ *      description="Test not started yet",
+ *          @OA\JsonContent(
+ *              @OA\Property(property="status", type="string", example="error"),
+ *              @OA\Property(property="message", type="string", example="Test not started yet"),
+ *              @OA\Property(property="data", type="null", example="null")
+ *          ),
+ *      ),
+ *     @OA\Response(
+ *      response="402",
+ *      description="Test allready finished",
+ *          @OA\JsonContent(
+ *              @OA\Property(property="status", type="string", example="error"),
+ *              @OA\Property(property="message", type="string", example="Test allready finished"),
+ *              @OA\Property(property="data", type="null", example="null")
+ *          ),
+ *      ),
+ * ),
+ */
 
 class TakeController extends Controller
 {

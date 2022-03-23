@@ -154,7 +154,7 @@ use App\Traits\ApiResponser;
  *      ),
  *     ),
  * ),
- * )
+ * ),
  */
 class QuizController extends Controller
 {
