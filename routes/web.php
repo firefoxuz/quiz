@@ -35,6 +35,8 @@ Route::group(['middleware' => ['auth', 'disable.caching.on.local']], function ()
     // Store and Edit answers routes
     Route::get('/quizzes/{quiz_id}/questions/{question_id}/store_answer', ['App\Http\Controllers\Admin\Quiz\QuizAnswerController', 'addAnswer'])->name('quiz.store_answer');
     Route::get('/quizzes/{quiz_id}/questions/{question_id}/answers/{answer_id}/edit_answer', ['App\Http\Controllers\Admin\Quiz\QuizAnswerController', 'editAnswer'])->name('quiz.edit_answer');
+    Route::get('/quizzes/{quiz_id}/takes', ['App\Http\Controllers\Admin\Take\TakeController', 'index'])->name('quizzes.take.index');
+    Route::get('/quizzes/{quiz_id}/takes/{take_id}', ['App\Http\Controllers\Admin\Take\TakeController', 'show'])->name('quizzes.take.show');
 
     // Api Users routes
 
@@ -45,8 +47,5 @@ Route::group(['middleware' => ['auth', 'disable.caching.on.local']], function ()
     Route::resource('/user', 'App\Http\Controllers\Admin\User\UserController', ['only' => ['index', 'create']]);
     Route::resource('/api_users', 'App\Http\Controllers\Admin\User\ApiUserController', ['only' => ['index', 'create', 'show',]]);
     Route::resource('/face_api', 'App\Http\Controllers\Admin\User\FaceDataController', ['only' => ['index', 'create']]);
-});
 
-Route::get('/test', function () {
-    return (new RandomQuestion)->getRandomQuestion(1, 10);
 });

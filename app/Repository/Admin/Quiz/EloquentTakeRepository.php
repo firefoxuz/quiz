@@ -34,13 +34,36 @@ class EloquentTakeRepository
             ->paginate($count);
     }
 
+    public function paginateQuizTakes($quiz_id, int $count)
+    {
+        return Take::select([
+            'takes.id as id',
+            'api_users.first_name',
+            'api_users.last_name',
+            'user_id',
+            'quiz_id',
+            'correct_answers',
+            'status',
+            'content',
+            'starts_at',
+            'ends_at',
+            'created_at',
+            'updated_at',
+        ])
+            ->where('quiz_id', $quiz_id)
+            ->join('api_users', 'api_users.id', '=', 'takes.user_id')
+            ->orderBy('id', 'desc')
+            ->paginate($count);
+    }
+
+
     /**
      * Return all users
      * @return \Illuminate\Database\Eloquent\Collection
      */
     public function all()
     {
-        return Quiz::query()->select([
+        return Take::query()->select([
             'id',
             'title',
             'summary',
@@ -73,7 +96,7 @@ class EloquentTakeRepository
      */
     public function update(array $data, $id)
     {
-        return Quiz::query()->where('id', $id)->update($data);
+        return Take::query()->where('id', $id)->update($data);
     }
 
     /**
@@ -100,6 +123,6 @@ class EloquentTakeRepository
      */
     public function find($id)
     {
-        return Quiz::query()->findOrFail($id);
+        return Take::query()->with(['user', 'quiz'])->findOrFail($id);
     }
 }

@@ -32,17 +32,30 @@ class TakeAnswer
 
     private function prepareAttributes(): array
     {
+        $quiz_answers = $this->quiz_answers;
+
         $attr = [];
         foreach ($this->answers as $answer) {
-            if (array_key_exists($answer['question_id'], $this->quiz_answers)) {
+            if (array_key_exists($answer['question_id'], $quiz_answers)) {
                 $attr[] = [
                     'take_id' => $this->take_id,
                     'question_id' => $answer['question_id'],
                     'answer_id' => $answer['answer_id'] ?? null,
                     'content' => $answer['content'] ?? null,
                 ];
+                unset($quiz_answers[$answer['question_id']]);
             }
         }
+
+        foreach ($quiz_answers as $answer) {
+            $attr[] = [
+                'take_id' => $this->take_id,
+                'question_id' => $answer['question_id'],
+                'answer_id' => null,
+                'content' => null,
+            ];
+        }
+
         return $attr;
     }
 }

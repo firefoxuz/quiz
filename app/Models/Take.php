@@ -23,4 +23,14 @@ class Take extends Model
         'starts_at',
         'ends_at',
     ];
+
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(ApiUser::class);
+    }
+
+    public function quiz(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Quiz::class);
+    }
 }

@@ -1,7 +1,7 @@
 <?php
 return [
     'site' => [
-        'title' => 'O\'zbek tilining izohiy lug\'ati',
+        'title' => 'Quiz',
         'login' => [
             'sign_in' => 'Tizimga kirish',
             'enter' => 'Kirish',
@@ -77,5 +77,21 @@ return [
         'photo' => 'Photo',
         'add' => 'Yangi qo\'shish',
         'add_face_model' => 'Yangi face model qo\'shish',
+    ],
+    'take' => [
+        'statuses' => [
+            '',
+            'Started',
+            'Finished'
+        ],
+        'take' => 'Take',
+        'quiz_id' => 'Quiz id',
+        'user_id' => 'User id',
+        'created_at' => 'Yaratilgan sana',
+        'updated_at' => 'Yangilangan sana',
+        'started_at' => 'Boshlanish sanasi',
+        'finished_at' => 'Tugatish sanasi',
+        'score' => 'Ball',
+        'status' => 'Status',
     ],
 ];
