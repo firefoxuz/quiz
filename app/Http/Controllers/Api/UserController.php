@@ -115,7 +115,7 @@ class UserController extends Controller
             'first_name' => 'nullable|string|max:50',
             'last_name' => 'nullable|string|max:50',
             'phone' => 'nullable|string|max:15',
-            'email' => 'nullable|string|email|unique:api_users,email',
+            'email' => 'nullable|string|email|unique:api_users,email,' . auth()->user()->id,
             'password' => 'nullable|string|min:6',
         ]);
 
