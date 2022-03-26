@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Api\Quiz;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\TakeCollection;
 use App\Http\Resources\TakeQuestionCollection;
 use App\Http\Resources\TakeResource;
 use App\Models\Quiz;
 use App\Models\Take;
 use App\Repository\Admin\Quiz\EloquentTakeRepository;
 use App\Services\AnswerChecker;
+use App\Services\Pagination;
 use App\Services\RandomQuestion;
 use App\Services\TakeAnswer;
 use App\Traits\ApiResponser;
@@ -25,7 +27,17 @@ use Illuminate\Http\Request;
  *        "message": null,
  *        "data": {
  *            "take": {
- *                "quiz_id": "1",
+ *                "quiz": {
+ *                      "id": 1,
+ *                      "title": "Matematika",
+ *                      "summary": "Matematika Matematika",
+ *                      "count": 30,
+ *                      "attempts": 100,
+ *                      "time_limit": 30,
+ *                      "starts_at": "2022-03-17 22:20:42",
+ *                      "ends_at": "2022-03-31 22:20:46",
+ *                      "content": "Matematika Matematika Matematika"
+ *                      },
  *                "user_id": 1,
  *                "status": 1,
  *                "content": "",
@@ -107,6 +119,381 @@ use Illuminate\Http\Request;
  *             {
  *                "question_id": 3,
  *                "content": "hello world"
+ *            }
+ *        }
+ * }
+ * ),
+ *  @OA\Schema(
+ *   schema="Take",
+ *   type="object",
+ *  example={
+ *        {
+ *            "data": {
+ *                {
+ *                    "id": 1,
+ *                    "quiz": {
+ *                        "id": 1,
+ *                        "title": "Matematika",
+ *                        "summary": "Matematika Matematika",
+ *                        "count": 30,
+ *                        "attempts": 100,
+ *                        "time_limit": 30,
+ *                        "starts_at": "2022-03-17 22:20:42",
+ *                        "ends_at": "2022-03-31 22:20:46",
+ *                        "content": "Matematika Matematika Matematika"
+ *                    },
+ *                    "status": "finished",
+ *                    "correct_answers": 3,
+ *                    "content": "",
+ *                    "starts_at": "2022-03-19 18:44:23",
+ *                    "ends_at": "2022-03-19 19:14:23",
+ *                    "created_at": "2022-03-19T13:44:23.000000Z"
+ *                },
+ *                {
+ *                    "id": 2,
+ *                    "quiz": {
+ *                        "id": 1,
+ *                        "title": "Matematika",
+ *                        "summary": "Matematika Matematika",
+ *                        "count": 30,
+ *                        "attempts": 100,
+ *                        "time_limit": 30,
+ *                        "starts_at": "2022-03-17 22:20:42",
+ *                        "ends_at": "2022-03-31 22:20:46",
+ *                        "content": "Matematika Matematika Matematika"
+ *                    },
+ *                    "status": "finished",
+ *                    "correct_answers": 0,
+ *                    "content": "",
+ *                    "starts_at": "2022-03-19 18:54:22",
+ *                    "ends_at": "2022-03-19 19:24:22",
+ *                    "created_at": "2022-03-19T13:54:22.000000Z"
+ *                },
+ *                {
+ *                    "id": 3,
+ *                    "quiz": {
+ *                        "id": 1,
+ *                        "title": "Matematika",
+ *                        "summary": "Matematika Matematika",
+ *                        "count": 30,
+ *                        "attempts": 100,
+ *                        "time_limit": 30,
+ *                        "starts_at": "2022-03-17 22:20:42",
+ *                        "ends_at": "2022-03-31 22:20:46",
+ *                        "content": "Matematika Matematika Matematika"
+ *                    },
+ *                    "status": "finished",
+ *                    "correct_answers": 2,
+ *                    "content": "",
+ *                    "starts_at": "2022-03-19 19:07:51",
+ *                    "ends_at": "2022-03-19 19:37:51",
+ *                    "created_at": "2022-03-19T14:07:51.000000Z"
+ *                },
+ *                {
+ *                    "id": 4,
+ *                    "quiz": {
+ *                        "id": 1,
+ *                        "title": "Matematika",
+ *                        "summary": "Matematika Matematika",
+ *                        "count": 30,
+ *                        "attempts": 100,
+ *                        "time_limit": 30,
+ *                        "starts_at": "2022-03-17 22:20:42",
+ *                        "ends_at": "2022-03-31 22:20:46",
+ *                        "content": "Matematika Matematika Matematika"
+ *                    },
+ *                    "status": "finished",
+ *                    "correct_answers": 2,
+ *                    "content": "",
+ *                    "starts_at": "2022-03-19 19:18:29",
+ *                    "ends_at": "2022-03-19 19:48:29",
+ *                    "created_at": "2022-03-19T14:18:29.000000Z"
+ *                },
+ *                {
+ *                    "id": 5,
+ *                    "quiz": {
+ *                        "id": 1,
+ *                        "title": "Matematika",
+ *                        "summary": "Matematika Matematika",
+ *                        "count": 30,
+ *                        "attempts": 100,
+ *                        "time_limit": 30,
+ *                        "starts_at": "2022-03-17 22:20:42",
+ *                        "ends_at": "2022-03-31 22:20:46",
+ *                        "content": "Matematika Matematika Matematika"
+ *                    },
+ *                    "status": "finished",
+ *                    "correct_answers": 0,
+ *                    "content": "",
+ *                    "starts_at": "2022-03-19 20:58:31",
+ *                    "ends_at": "2022-03-19 21:28:31",
+ *                    "created_at": "2022-03-19T15:58:31.000000Z"
+ *                },
+ *                {
+ *                    "id": 6,
+ *                    "quiz": {
+ *                        "id": 1,
+ *                        "title": "Matematika",
+ *                        "summary": "Matematika Matematika",
+ *                        "count": 30,
+ *                        "attempts": 100,
+ *                        "time_limit": 30,
+ *                        "starts_at": "2022-03-17 22:20:42",
+ *                        "ends_at": "2022-03-31 22:20:46",
+ *                        "content": "Matematika Matematika Matematika"
+ *                    },
+ *                    "status": "finished",
+ *                    "correct_answers": 0,
+ *                    "content": "",
+ *                    "starts_at": "2022-03-19 21:00:41",
+ *                    "ends_at": "2022-03-19 21:30:41",
+ *                    "created_at": "2022-03-19T16:00:41.000000Z"
+ *                },
+ *                {
+ *                    "id": 7,
+ *                    "quiz": {
+ *                        "id": 1,
+ *                        "title": "Matematika",
+ *                        "summary": "Matematika Matematika",
+ *                        "count": 30,
+ *                        "attempts": 100,
+ *                        "time_limit": 30,
+ *                        "starts_at": "2022-03-17 22:20:42",
+ *                        "ends_at": "2022-03-31 22:20:46",
+ *                        "content": "Matematika Matematika Matematika"
+ *                    },
+ *                    "status": "finished",
+ *                    "correct_answers": 0,
+ *                    "content": "",
+ *                    "starts_at": "2022-03-19 21:01:59",
+ *                    "ends_at": "2022-03-19 21:31:59",
+ *                    "created_at": "2022-03-19T16:01:59.000000Z"
+ *                },
+ *                {
+ *                    "id": 8,
+ *                    "quiz": {
+ *                        "id": 1,
+ *                        "title": "Matematika",
+ *                        "summary": "Matematika Matematika",
+ *                        "count": 30,
+ *                        "attempts": 100,
+ *                        "time_limit": 30,
+ *                        "starts_at": "2022-03-17 22:20:42",
+ *                        "ends_at": "2022-03-31 22:20:46",
+ *                        "content": "Matematika Matematika Matematika"
+ *                    },
+ *                    "status": "finished",
+ *                    "correct_answers": 0,
+ *                    "content": "",
+ *                    "starts_at": "2022-03-19 21:03:38",
+ *                    "ends_at": "2022-03-19 21:33:38",
+ *                    "created_at": "2022-03-19T16:03:38.000000Z"
+ *                },
+ *                {
+ *                    "id": 9,
+ *                    "quiz": {
+ *                        "id": 1,
+ *                        "title": "Matematika",
+ *                        "summary": "Matematika Matematika",
+ *                        "count": 30,
+ *                        "attempts": 100,
+ *                        "time_limit": 30,
+ *                        "starts_at": "2022-03-17 22:20:42",
+ *                        "ends_at": "2022-03-31 22:20:46",
+ *                        "content": "Matematika Matematika Matematika"
+ *                    },
+ *                    "status": "finished",
+ *                    "correct_answers": 2,
+ *                    "content": "",
+ *                    "starts_at": "2022-03-19 21:10:30",
+ *                    "ends_at": "2022-03-19 21:40:30",
+ *                    "created_at": "2022-03-19T16:10:30.000000Z"
+ *                },
+ *                {
+ *                    "id": 10,
+ *                    "quiz": {
+ *                        "id": 1,
+ *                        "title": "Matematika",
+ *                        "summary": "Matematika Matematika",
+ *                        "count": 30,
+ *                        "attempts": 100,
+ *                        "time_limit": 30,
+ *                        "starts_at": "2022-03-17 22:20:42",
+ *                        "ends_at": "2022-03-31 22:20:46",
+ *                        "content": "Matematika Matematika Matematika"
+ *                    },
+ *                    "status": "finished",
+ *                    "correct_answers": 2,
+ *                    "content": "",
+ *                    "starts_at": "2022-03-23 21:35:06",
+ *                    "ends_at": "2022-03-23 22:05:06",
+ *                    "created_at": "2022-03-23T16:35:06.000000Z"
+ *                },
+ *                {
+ *                    "id": 11,
+ *                    "quiz": {
+ *                        "id": 1,
+ *                        "title": "Matematika",
+ *                        "summary": "Matematika Matematika",
+ *                        "count": 30,
+ *                        "attempts": 100,
+ *                        "time_limit": 30,
+ *                        "starts_at": "2022-03-17 22:20:42",
+ *                        "ends_at": "2022-03-31 22:20:46",
+ *                        "content": "Matematika Matematika Matematika"
+ *                    },
+ *                    "status": "finished",
+ *                    "correct_answers": 2,
+ *                    "content": "",
+ *                    "starts_at": "2022-03-23 22:19:00",
+ *                    "ends_at": "2022-03-23 22:49:00",
+ *                    "created_at": "2022-03-23T17:19:00.000000Z"
+ *                },
+ *                {
+ *                    "id": 12,
+ *                    "quiz": {
+ *                        "id": 1,
+ *                        "title": "Matematika",
+ *                        "summary": "Matematika Matematika",
+ *                        "count": 30,
+ *                        "attempts": 100,
+ *                        "time_limit": 30,
+ *                        "starts_at": "2022-03-17 22:20:42",
+ *                        "ends_at": "2022-03-31 22:20:46",
+ *                        "content": "Matematika Matematika Matematika"
+ *                    },
+ *                    "status": "finished",
+ *                    "correct_answers": 1,
+ *                    "content": "",
+ *                    "starts_at": "2022-03-24 15:15:39",
+ *                    "ends_at": "2022-03-24 15:45:39",
+ *                    "created_at": "2022-03-24T10:15:39.000000Z"
+ *                },
+ *                {
+ *                    "id": 13,
+ *                    "quiz": {
+ *                        "id": 1,
+ *                        "title": "Matematika",
+ *                        "summary": "Matematika Matematika",
+ *                        "count": 30,
+ *                        "attempts": 100,
+ *                        "time_limit": 30,
+ *                        "starts_at": "2022-03-17 22:20:42",
+ *                        "ends_at": "2022-03-31 22:20:46",
+ *                        "content": "Matematika Matematika Matematika"
+ *                    },
+ *                    "status": "finished",
+ *                    "correct_answers": 1,
+ *                    "content": "",
+ *                    "starts_at": "2022-03-24 18:59:35",
+ *                    "ends_at": "2022-03-24 19:29:35",
+ *                    "created_at": "2022-03-24T13:59:35.000000Z"
+ *                },
+ *                {
+ *                    "id": 14,
+ *                    "quiz": {
+ *                        "id": 1,
+ *                        "title": "Matematika",
+ *                        "summary": "Matematika Matematika",
+ *                        "count": 30,
+ *                        "attempts": 100,
+ *                        "time_limit": 30,
+ *                        "starts_at": "2022-03-17 22:20:42",
+ *                        "ends_at": "2022-03-31 22:20:46",
+ *                        "content": "Matematika Matematika Matematika"
+ *                    },
+ *                    "status": "finished",
+ *                    "correct_answers": 0,
+ *                    "content": null,
+ *                    "starts_at": "2022-03-23 22:14:25",
+ *                    "ends_at": "2022-03-24 22:22:25",
+ *                    "created_at": null
+ *                },
+ *                {
+ *                    "id": 15,
+ *                    "quiz": {
+ *                        "id": 1,
+ *                        "title": "Matematika",
+ *                        "summary": "Matematika Matematika",
+ *                        "count": 30,
+ *                        "attempts": 100,
+ *                        "time_limit": 30,
+ *                        "starts_at": "2022-03-17 22:20:42",
+ *                        "ends_at": "2022-03-31 22:20:46",
+ *                        "content": "Matematika Matematika Matematika"
+ *                    },
+ *                    "status": "finished",
+ *                    "correct_answers": 0,
+ *                    "content": null,
+ *                    "starts_at": "2022-03-23 22:14:25",
+ *                    "ends_at": "2022-03-24 22:22:25",
+ *                    "created_at": null
+ *                }
+ *            },
+ *            "links": {
+ *                "first": "http://quiz.uz/api/take?page=1",
+ *                "last": "http://quiz.uz/api/take?page=2",
+ *                "prev": null,
+ *                "next": "http://quiz.uz/api/take?page=2"
+ *            },
+ *            "meta": {
+ *                "current_page": 1,
+ *                "from": 1,
+ *                "last_page": 2,
+ *                "links": {
+ *                    {
+ *                        "url": null,
+ *                        "label": "&laquo; Previous",
+ *                        "active": false
+ *                    },
+ *                    {
+ *                        "url": "http://quiz.uz/api/take?page=1",
+ *                        "label": "1",
+ *                        "active": true
+ *                    },
+ *                    {
+ *                        "url": "http://quiz.uz/api/take?page=2",
+ *                        "label": "2",
+ *                        "active": false
+ *                    },
+ *                    {
+ *                        "url": "http://quiz.uz/api/take?page=2",
+ *                        "label": "Next &raquo;",
+ *                        "active": false
+ *                    }
+ *                },
+ *                "path": "http://quiz.uz/api/take",
+ *                "per_page": 15,
+ *                "to": 15,
+ *                "total": 17
+ *            }
+ *        }
+ * }
+ * ),
+ *  @OA\Schema(
+ *   schema="TakeShow",
+ *   type="object",
+ *  example={
+ *        {
+ *            "data": {
+ *                "id": 1,
+ *                "quiz": {
+ *                    "id": 1,
+ *                    "title": "Matematika",
+ *                    "summary": "Matematika Matematika",
+ *                    "count": 30,
+ *                    "attempts": 100,
+ *                    "time_limit": 30,
+ *                    "starts_at": "2022-03-17 22:20:42",
+ *                    "ends_at": "2022-03-31 22:20:46",
+ *                    "content": "Matematika Matematika Matematika"
+ *                },
+ *                "status": "finished",
+ *                "correct_answers": 3,
+ *                "content": "",
+ *                "starts_at": "2022-03-19 18:44:23",
+ *                "ends_at": "2022-03-19 19:14:23",
+ *                "created_at": "2022-03-19T13:44:23.000000Z"
  *            }
  *        }
  * }
@@ -216,6 +603,53 @@ use Illuminate\Http\Request;
  *          ),
  *      ),
  * ),
+ *
+ * @OA\Get(
+ *     summary="Get user takes",
+ *     path="/api/takes",
+ *     description="Get user takes",
+ *     tags={"Take"},
+ *     security={{"sanctum":{}}},
+ *     @OA\Response(
+ *      response="200",
+ *      description="Successful",
+ *          @OA\JsonContent(
+ *              type="object",
+ *              ref="#/components/schemas/Take"
+ *          ),
+ *      ),
+ * ),
+ * @OA\Get(
+ *     summary="Retrieve specific quiz",
+ *     path="/api/takes/{id}",
+ *     description="Retrieve specific quiz",
+ *     @OA\Parameter(
+ *          name="id",
+ *          in="path",
+ *          @OA\Schema(type="integer"),
+ *          required=true,
+ *     ),
+ *     tags={"Take"},
+ *     security={{"sanctum":{}}},
+ *     @OA\Response(
+ *      response="200",
+ *      description="Successful",
+ *          @OA\JsonContent(
+ *              type="object",
+ *              ref="#/components/schemas/TakeShow"
+ *          ),
+ *      ),
+ *     @OA\Response(
+ *      response="404",
+ *      description="You have no attempts",
+ *          @OA\JsonContent(
+ *              @OA\Property(property="status", type="string", example="error"),
+ *              @OA\Property(property="message", type="string", example="Take not found"),
+ *              @OA\Property(property="data", type="null", example="null")
+ *          ),
+ *      ),
+
+ * ),
  */
 class TakeController extends Controller
 {
@@ -298,4 +732,23 @@ class TakeController extends Controller
         return $this->success($take);
 
     }
+
+    public function index()
+    {
+        $takes = Take::where('user_id', auth()->user()->id)->paginate(Pagination::perPage('takes'));
+
+        return new TakeCollection($takes);
+    }
+
+    public function show($take)
+    {
+        $take = Take::where('id', $take)->where('user_id', auth()->user()->id)->first();
+
+        if ($take == null) {
+            return $this->error('Take not found', 404);
+        }
+
+        return new TakeResource($take);
+    }
+
 }

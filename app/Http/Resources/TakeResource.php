@@ -21,6 +21,7 @@ class TakeResource extends JsonResource
             'id' => $this->id,
             'quiz' => new QuizResource((new EloquentQuizRepository())->find($this->quiz_id)),
             'status' => Take::STATUSES[$this->status],
+            'correct_answers' => $this->correct_answers,
             'content' => $this->content,
             'starts_at' => $this->starts_at,
             'ends_at' => $this->ends_at,
