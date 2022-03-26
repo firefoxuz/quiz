@@ -94,21 +94,21 @@ use Illuminate\Http\Request;
  *   schema="QuizFinishBody",
  *   type="object",
  *  example={
- *	    "take_id": 11,
- *	    "answers" : {
- *	        {
- *	            "question_id": 1,
- *	            "answer_id": 6,
- *	        },
- *	        {
- *	            "question_id": 2,
- *	            "answer_id": 2
- *	        },
- *	         {
- *	            "question_id": 3,
- *	            "content": "hello world"
- *	        }
- *	    }
+ *        "take_id": 11,
+ *        "answers" : {
+ *            {
+ *                "question_id": 1,
+ *                "answer_id": 6,
+ *            },
+ *            {
+ *                "question_id": 2,
+ *                "answer_id": 2
+ *            },
+ *             {
+ *                "question_id": 3,
+ *                "content": "hello world"
+ *            }
+ *        }
  * }
  * ),
  *   ),
@@ -117,8 +117,7 @@ use Illuminate\Http\Request;
  *      type="http",
  *      scheme="bearer"
  * ),
-
- *  @OA\Post(
+ * @OA\Post(
  *     summary="Finish specific quiz",
  *     path="/api/quizzes/{id}/finish",
  *     description="Finish specific quiz",
@@ -142,20 +141,20 @@ use Illuminate\Http\Request;
  *          @OA\JsonContent(
  *         type="object",
  *          example={
- *	    "status": "success",
- *	    "message": null,
- *	    "data": {
- *	        "id": 11,
- *	        "user_id": 1,
- *	        "quiz_id": 1,
- *	        "correct_answers": 2,
- *	        "status": 2,
- *	        "starts_at": "2022-03-23 22:19:00",
- *	        "ends_at": "2022-03-23 22:49:00",
- *	        "content": "",
- *	        "created_at": "2022-03-23T17:19:00.000000Z",
- *	        "updated_at": "2022-03-23T17:19:15.000000Z"
- *	    }
+ *        "status": "success",
+ *        "message": null,
+ *        "data": {
+ *            "id": 11,
+ *            "user_id": 1,
+ *            "quiz_id": 1,
+ *            "correct_answers": 2,
+ *            "status": 2,
+ *            "starts_at": "2022-03-23 22:19:00",
+ *            "ends_at": "2022-03-23 22:49:00",
+ *            "content": "",
+ *            "created_at": "2022-03-23T17:19:00.000000Z",
+ *            "updated_at": "2022-03-23T17:19:15.000000Z"
+ *        }
  *        }
  *          ),
  *      ),
@@ -218,7 +217,6 @@ use Illuminate\Http\Request;
  *      ),
  * ),
  */
-
 class TakeController extends Controller
 {
     use ApiResponser;
@@ -259,7 +257,7 @@ class TakeController extends Controller
             ]);
 
             return $this->success([
-                'take' => $new_take,
+                'take' => new TakeResource($new_take),
                 'questions' => new TakeQuestionCollection((new RandomQuestion())->getRandomQuestion($quiz_id, $new_take->id, $quiz->count))
             ]);
         }
