@@ -27,7 +27,7 @@ class Edit extends Component
         'starts_at' => 'required|date|date_format:d.m.Y',
         'count' => 'required|integer|min:1|max:100',
         'time_limit' => 'required|integer|min:1|max:120',
-        'attempts' => 'required|integer|min:1|max:5',
+        'attempts' => 'required|integer|min:1|max:100',
         'ends_at' => 'required|date|after:starts_at|date_format:d.m.Y',
         'content' => 'required|min:3|string|max:1000',
     ];
