@@ -15,7 +15,7 @@ return [
         'count' => 'Soni',
         'actions' => 'Harakatlar',
         'delete' => 'O\'chirish',
-        'save' => 'Saqlash'
+        'save' => 'Saqlash',
     ],
     'user' => [
         'user' => 'Admin',
@@ -36,6 +36,8 @@ return [
         'registered_at' => 'Ro\'yxatdan o\'tgan sana',
     ],
     'quiz' => [
+        'import' => 'Import',
+        'format' => 'Formatlash',
         'new' => 'Yangi qo\'shish',
         'quiz' => 'Quiz',
         'count' => 'Savollar soni',
@@ -53,6 +55,18 @@ return [
         'content' => 'Mazmun',
         'created_at' => 'Yaratilgan sana',
         'updated_at' => 'Yangilangan sana',
+        'template' =>
+            'Question 1
+====
+Variant 1
+====
+#Variant 2 correct
+====
+Variant 3
+====
+Variant 4
+++++
+Question 2'
     ],
     'quiz_questions' => [
         'select' => 'Tanlang ...',

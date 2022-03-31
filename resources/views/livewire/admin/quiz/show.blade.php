@@ -1,6 +1,10 @@
 <div>
 
     <div class="text-right mt-2 mb-2">
+        <a href="{{ route('quiz.import_questions',['quiz_id' => $quiz_id]) }}" class="btn btn-primary">
+            <i class="icofont icofont-arrow-down"></i>
+            Savol import qilish
+        </a>
         <a href="{{ route('quiz.store_question',['quiz_id' => $quiz_id]) }}" class="btn btn-primary">
             <i class="icofont icofont-plus"></i>
             Savol qo'shish

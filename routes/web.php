@@ -32,6 +32,10 @@ Route::group(['middleware' => ['auth', 'disable.caching.on.local']], function ()
     Route::get('/quizzes/{quiz_id}/store_question', ['App\Http\Controllers\Admin\Quiz\QuizQuestionController', 'addQuestion'])->name('quiz.store_question');
     Route::get('/quizzes/{quiz_id}/questions/{question_id}/edit_question', ['App\Http\Controllers\Admin\Quiz\QuizQuestionController', 'editQuestion'])->name('quiz.edit_question');
 
+    //import questions
+
+    Route::get('/quizzes/{quiz_id}/import_questions', ['App\Http\Controllers\Admin\Quiz\QuizController', 'importQuestions'])->name('quiz.import_questions');
+
     // Store and Edit answers routes
     Route::get('/quizzes/{quiz_id}/questions/{question_id}/store_answer', ['App\Http\Controllers\Admin\Quiz\QuizAnswerController', 'addAnswer'])->name('quiz.store_answer');
     Route::get('/quizzes/{quiz_id}/questions/{question_id}/answers/{answer_id}/edit_answer', ['App\Http\Controllers\Admin\Quiz\QuizAnswerController', 'editAnswer'])->name('quiz.edit_answer');

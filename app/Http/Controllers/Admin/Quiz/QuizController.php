@@ -35,4 +35,9 @@ class QuizController extends Controller
         return view('quiz.edit', ['quiz' => $quiz]);
     }
 
+    public function importQuestions($quiz_id)   //import questions
+    {
+        return view('quiz.import', ['quiz_id' => $quiz_id]);
+    }
+
 }

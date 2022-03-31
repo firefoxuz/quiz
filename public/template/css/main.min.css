@@ -605,8 +605,8 @@ button, html input[type=button], input[type=reset], input[type=submit] {
 #sidebar.active {
   margin-left: -250px; }
 
-/*===  
-    1. Accordian Css 
+/*===
+    1. Accordian Css
     2. Form Css
     3. Breadcrumb Css
     4. Counter Css
@@ -696,7 +696,8 @@ input:focus::-webkit-input-placeholder, textarea:focus::-webkit-input-placeholde
   opacity: 0; }
 
 textarea.form-control {
-  height: 115px !important; }
+  height: 115px;
+}
 
 .form-control-lg {
   padding: .5rem 1rem !important;
