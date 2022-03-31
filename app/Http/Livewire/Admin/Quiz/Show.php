@@ -14,6 +14,8 @@ class Show extends Component
 {
     use WithPagination;
 
+    protected $listeners = ['changePublished'];
+
     public $quiz_id;
 
     public function mount($quiz)
@@ -27,6 +29,15 @@ class Show extends Component
             (new EloquentQuizQuestionRepository())->delete($id);
             SweetAlert::alertSuccess($this, 'deleted successfully');
         }, function ($exception) {
+            SweetAlert::alertError($this, $exception->getMessage());
+        });
+    }
+
+    public function changePublished($question_id)
+    {
+        DBTransaction::run(function () use ($question_id) {
+            (new EloquentQuizQuestionRepository())->changePublished($question_id);
+        },function($exception){
             SweetAlert::alertError($this, $exception->getMessage());
         });
     }

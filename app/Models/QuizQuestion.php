@@ -25,6 +25,7 @@ class QuizQuestion extends Model
         'type',
         'level',
         'content',
+        'published',
     ];
 
     public function answers()

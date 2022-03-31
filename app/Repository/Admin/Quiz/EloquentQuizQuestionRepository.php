@@ -23,6 +23,7 @@ class EloquentQuizQuestionRepository
             'quiz_id',
             'type',
             'level',
+            'published',
             'content',
         ])->paginate($count);
     }
@@ -38,6 +39,7 @@ class EloquentQuizQuestionRepository
             'quiz_id',
             'type',
             'level',
+            'published',
             'content',
         ])->get();
     }
@@ -90,6 +92,7 @@ class EloquentQuizQuestionRepository
             'quiz_id',
             'type',
             'level',
+            'published',
             'content',
         ])->where('quiz_id', $quiz_id)->paginate($count);
     }
@@ -120,6 +123,21 @@ class EloquentQuizQuestionRepository
 
         return false;
 
+    }
+
+    public function changePublished($question_id)
+    {
+        $question = $this->find($question_id);
+
+        if ($question->published == 1) {
+            $question->published = 0;
+        } else {
+            $question->published = 1;
+        }
+
+        $question->save();
+
+        return $question;
     }
 
 }

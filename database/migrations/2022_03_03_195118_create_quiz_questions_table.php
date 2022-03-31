@@ -18,6 +18,7 @@ class CreateQuizQuestionsTable extends Migration
             $table->unsignedBigInteger('quiz_id');
             $table->tinyInteger('type')->default(0);
             $table->tinyInteger('level')->default(0);
+            $table->tinyInteger('published')->default(1);
             $table->text('content')->nullable();
             $table->timestamps();
         });

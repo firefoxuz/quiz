@@ -20,7 +20,7 @@
         <div class="row">
             <div class="col-12 col-lg-3 col-xl-2 align-self-center">
                 <div class="site-logo">
-                    <a href="index-2.html"><img src="dist/images/logo-v1.png" alt="" class="img-fluid" /></a>
+                    <a href="index-2.html"><img src="dist/images/logo-v1.png" alt="" class="img-fluid"/></a>
                 </div>
                 <div class="navbar-header">
                     <button type="button" id="sidebarCollapse" class="navbar-btn bg-transparent float-right">
@@ -41,7 +41,8 @@
                                 <li>
                                     <a class="dropdown-item" href="#">
                                         <div class="media py-2">
-                                            <img src="dist/images/author.jpg" alt="" class="d-flex mr-3 img-fluid redial-rounded-circle-50" />
+                                            <img src="dist/images/author.jpg" alt=""
+                                                 class="d-flex mr-3 img-fluid redial-rounded-circle-50"/>
                                             <div class="media-body">
                                                 <h6 class="mb-0">john send a message</h6>
                                                 <small class="redial-light">12 min ago</small>
@@ -52,7 +53,8 @@
                                 <li>
                                     <a class="dropdown-item" href="#">
                                         <div class="media py-2">
-                                            <img src="dist/images/author2.jpg" alt="" class="d-flex mr-3 img-fluid redial-rounded-circle-50" />
+                                            <img src="dist/images/author2.jpg" alt=""
+                                                 class="d-flex mr-3 img-fluid redial-rounded-circle-50"/>
                                             <div class="media-body">
                                                 <h6 class="mb-0">Peter send a message</h6>
                                                 <small class="redial-light">15 min ago</small>
@@ -63,7 +65,8 @@
                                 <li>
                                     <a class="dropdown-item" href="#">
                                         <div class="media py-2">
-                                            <img src="dist/images/author3.jpg" alt="" class="d-flex mr-3 img-fluid redial-rounded-circle-50" />
+                                            <img src="dist/images/author3.jpg" alt=""
+                                                 class="d-flex mr-3 img-fluid redial-rounded-circle-50"/>
                                             <div class="media-body">
                                                 <h6 class="mb-0">Bill send a message</h6>
                                                 <small class="redial-light">5 min ago</small>
@@ -71,7 +74,8 @@
                                         </div>
                                     </a>
                                 </li>
-                                <li><a class="dropdown-item text-center py-2" href="#"> <strong>Read All Message <i class="fa fa-angle-right pl-2"></i></strong></a></li>
+                                <li><a class="dropdown-item text-center py-2" href="#"> <strong>Read All Message <i
+                                                class="fa fa-angle-right pl-2"></i></strong></a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown  align-self-center">
@@ -79,7 +83,8 @@
                                 <li>
                                     <a class="dropdown-item" href="#">
                                         <div class="media py-2">
-                                            <img src="dist/images/author.jpg" alt="" class="d-flex mr-3 img-fluid redial-rounded-circle-50" />
+                                            <img src="dist/images/author.jpg" alt=""
+                                                 class="d-flex mr-3 img-fluid redial-rounded-circle-50"/>
                                             <div class="media-body">
                                                 <h6 class="mb-0">john</h6>
                                                 <small class="redial-light"> New user registered. </small>
@@ -90,7 +95,8 @@
                                 <li>
                                     <a class="dropdown-item" href="#">
                                         <div class="media py-2">
-                                            <img src="dist/images/author2.jpg" alt="" class="d-flex mr-3 img-fluid redial-rounded-circle-50" />
+                                            <img src="dist/images/author2.jpg" alt=""
+                                                 class="d-flex mr-3 img-fluid redial-rounded-circle-50"/>
                                             <div class="media-body">
                                                 <h6 class="mb-0">Peter</h6>
                                                 <small class="redial-light"> Server #12 overloaded. </small>
@@ -101,7 +107,8 @@
                                 <li>
                                     <a class="dropdown-item" href="#">
                                         <div class="media py-2">
-                                            <img src="dist/images/author3.jpg" alt="" class="d-flex mr-3 img-fluid redial-rounded-circle-50" />
+                                            <img src="dist/images/author3.jpg" alt=""
+                                                 class="d-flex mr-3 img-fluid redial-rounded-circle-50"/>
                                             <div class="media-body">
                                                 <h6 class="mb-0">Bill</h6>
                                                 <small class="redial-light"> Application error. </small>
@@ -109,14 +116,16 @@
                                         </div>
                                     </a>
                                 </li>
-                                <li><a class="dropdown-item text-center py-3" href="#"> <strong>See All Tasks <i class="fa fa-angle-right pl-2"></i></strong></a></li>
+                                <li><a class="dropdown-item text-center py-3" href="#"> <strong>See All Tasks <i
+                                                class="fa fa-angle-right pl-2"></i></strong></a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown user-profile align-self-center">
-                            <a  class="nav-link" data-toggle="dropdown" aria-expanded="false">
+                            <a class="nav-link" data-toggle="dropdown" aria-expanded="false">
                                 <span class="float-right pl-3 text-white"><i class="fa fa-angle-down"></i></span>
                                 <div class="media">
-                                    <img src="dist/images/author.jpg" alt="" class="d-flex mr-3 img-fluid redial-rounded-circle-50" width="45" />
+                                    <img src="dist/images/author.jpg" alt=""
+                                         class="d-flex mr-3 img-fluid redial-rounded-circle-50" width="45"/>
                                     <div class="media-body align-self-center">
                                         <p class="mb-2 text-white text-uppercase font-weight-bold">John Deo</p>
                                         <small class="redial-primary-light font-weight-bold text-white"> Admin </small>
@@ -124,12 +133,18 @@
                                 </div>
                             </a>
                             <ul class="dropdown-menu border-bottom-0 rounded-0 py-0">
-                                <li><a class="dropdown-item py-2" href="#"><i class="fa fa-user pr-2"></i> User Profile</a></li>
-                                <li><a class="dropdown-item py-2" href="#"><i class="fa fa-cog pr-2"></i> Setting</a></li>
+                                <li><a class="dropdown-item py-2" href="#"><i class="fa fa-user pr-2"></i> User Profile</a>
+                                </li>
+                                <li><a class="dropdown-item py-2" href="#"><i class="fa fa-cog pr-2"></i> Setting</a>
+                                </li>
                                 <form action="{{route('logout')}}" method="POST">
                                     @csrf
                                     <input type="hidden" name="method" value="DELETE">
-                                    <li><button type="submit" class="dropdown-item py-2" ><i class="fa fa-sign-out pr-2"></i> logout</button></li>
+                                    <li>
+                                        <button type="submit" class="dropdown-item py-2"><i
+                                                class="fa fa-sign-out pr-2"></i> logout
+                                        </button>
+                                    </li>
                                 </form>
                             </ul>
                         </li>

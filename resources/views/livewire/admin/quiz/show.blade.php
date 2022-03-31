@@ -37,11 +37,15 @@
                         <td>{{ $levels[$question->level] }}</td>
                         <td>{{ $question->content }}</td>
                         <td>
-                            <a class="btn btn-primary"
+                            <input class="toggle-demo m-1" type="checkbox" value="true"
+                                   {{$question->published == 1 ? 'checked' : ''}}
+                                   onchange="questionStatus(this, {{$question->id}})"
+                                   data-toggle="toggle" data-onstyle="success" data-offstyle="danger">
+                            <a class="btn btn-primary m-1"
                                href="{{route('quiz.edit_question',['question_id' => $question->id,'quiz_id' => $question->quiz_id])}}">
                                 <i class="icofont icofont-pencil"></i>
                             </a>
-                            <a class="btn btn-primary"
+                            <a class="btn btn-primary m-1"
                                href="{{route('quiz.show_question',['question_id' => $question->id,'quiz_id' => $question->quiz_id])}}">
                                 <i class="icofont icofont-eye"></i>
                             </a>
@@ -55,4 +59,17 @@
             </div>
         </div>
     </div>
+    <script>
+        function questionStatus(el, question_id) {
+            console.log(el, question_id)
+            Livewire.emit('changePublished', question_id);
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            Livewire.hook('element.updated', (el, component) => {
+                $('.toggle-demo').bootstrapToggle()
+            })
+        });
+
+    </script>
 </div>

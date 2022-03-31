@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Collection;
 
 class RandomQuestion
 {
-    public function getRandomQuestion($quiz_id, $take_id , $limit): Collection
+    public function getRandomQuestion($quiz_id, $take_id, $limit): Collection
     {
         $questions = QuizQuestion::query()
             ->select([
@@ -17,12 +17,13 @@ class RandomQuestion
                 'content'
             ])
             ->where('quiz_id', $quiz_id)
+            ->where('published', 1)
             ->inRandomOrder()
             ->with('answers')
             ->limit($limit)
             ->get();
 
-        $this->insertRandomQuestionsInDB($quiz_id, $take_id , $questions);
+        $this->insertRandomQuestionsInDB($quiz_id, $take_id, $questions);
 
         return $questions;
     }
@@ -38,12 +39,12 @@ class RandomQuestion
                 'content'
             ])
             ->with('answers')
-            ->whereIn('id',$take->pluck('quiz_question_id'))
+            ->whereIn('id', $take->pluck('quiz_question_id'))
             ->get();
         return $questions;
     }
 
-    private function  insertRandomQuestionsInDB($quiz_id, $take_id, $questions)
+    private function insertRandomQuestionsInDB($quiz_id, $take_id, $questions)
     {
         $random_questions = [];
 
