@@ -704,8 +704,8 @@ class TakeController extends Controller
 
         $this->validate($request, [
             'take_id' => 'required|integer|exists:takes,id',
-            'answers' => 'required|array',
-            'answers.*.question_id' => 'required|integer',
+            'answers' => 'nullable|array',
+            'answers.*.question_id' => 'required_with:answers.*.answer_id,answers.*.content|integer',
             'answers.*.answer_id' => 'nullable|exists:quiz_answers,id|integer',
             'answers.*.content' => 'required_without:answers.*.answer_id|nullable',
         ]);

@@ -49,9 +49,6 @@
                             <a class="btn btn-primary" href="{{route('quizzes.take.index',['quiz_id' => $quiz->id])}}">
                                 <i class="icofont icofont-test-bulb"></i>
                             </a>
-                            <button class="btn btn-danger m-1" wire:click="delete({{$quiz->id}})">
-                                <i class="icofont icofont-bin"></i>
-                            </button>
                         </td>
                     </tr>
                 @endforeach

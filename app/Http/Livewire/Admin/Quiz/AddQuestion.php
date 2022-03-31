@@ -30,15 +30,18 @@ class AddQuestion extends Component
 
     public function create()
     {
+        $question = null;
         $data = $this->validate();
 
-        DBTransaction::run(function () use ($data) {
-            (new EloquentQuizQuestionRepository())->create([
+        DBTransaction::run(function () use ($data, $question) {
+            $question = (new EloquentQuizQuestionRepository())->create([
                 'quiz_id' => $this->quiz_id,
                 'type' => $data['type'],
                 'level' => $data['level'],
                 'content' => $data['content'],
             ]);
+
+            $this->redirectToQuestionAnswers($question);
             SweetAlert::alertSuccess($this, 'created successfully');
         }, function ($exception) {
             SweetAlert::alertError($this, $exception->getMessage());
@@ -52,9 +55,17 @@ class AddQuestion extends Component
     }
 
 
+    public function redirectToQuestionAnswers(QuizQuestion $question)
+    {
+        $this->redirectRoute('quiz.store_answer', [
+            'quiz_id' => $this->quiz_id,
+            'question_id' => $question->id,
+        ]);
+    }
+
     public function render()
     {
-        return view('livewire.admin.quiz.add-question',[
+        return view('livewire.admin.quiz.add-question', [
             'types' => QuizQuestion::TYPES,
             'levels' => QuizQuestion::LEVELS,
         ]);

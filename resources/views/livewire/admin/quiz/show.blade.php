@@ -41,9 +41,6 @@
                                href="{{route('quiz.show_question',['question_id' => $question->id,'quiz_id' => $question->quiz_id])}}">
                                 <i class="icofont icofont-eye"></i>
                             </a>
-                            <button class="btn btn-danger" wire:click="delete({{$question->id}})">
-                                <i class="icofont icofont-bin"></i>
-                            </button>
                         </td>
                     </tr>
                 @endforeach
