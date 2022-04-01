@@ -11,6 +11,8 @@
     <!--main Css-->
     <link href="{{asset('template/css/main.min.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('datepickerjs/datepicker.css')}}">
+    <!---Toggle-->
+    <link href="{{asset('toggle/toggle.min.css')}}" rel="stylesheet">
     @livewireStyles
 </head>
 <body>
@@ -172,6 +174,7 @@
 </div>
 <!-- End Main-content Top bar-->
 
+
 <!-- main-content-->
 <div class="wrapper">
     @include('layout.sidebar')
@@ -187,10 +190,12 @@
 </a>
 <!-- End Top To Bottom-->
 
+
 <!-- jQuery -->
 <script src="{{asset('template/js/plugins.min.js')}}"></script>
 <script src="{{asset('template/js/common.js')}}"></script>
 <script src="{{asset('template/js/toastr.js')}}"></script>
+<script src="{{asset('toggle/toggle.min.js')}}"></script>
 @livewireScripts
 @yield('scripts')
 </body>
