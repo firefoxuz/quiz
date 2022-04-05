@@ -40,6 +40,9 @@
                         <td>{{ $quiz->ends_at }}</td>
                         <td>{{ $quiz->content }}</td>
                         <td>
+                            <button class="btn btn-success m-1" wire:click="exportToExcel({{$quiz->id}})">
+                                <i class="icofont icofont-spreadsheet"></i>
+                            </button>
                             <a class="btn btn-primary" href="{{route('quizzes.edit',['quiz' => $quiz->id])}}">
                                 <i class="icofont icofont-pencil"></i>
                             </a>

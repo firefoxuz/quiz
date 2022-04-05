@@ -108,4 +108,13 @@ Question 2'
         'score' => 'Ball',
         'status' => 'Status',
     ],
+    'excel' => [
+        'header' => [
+            'full_name' => 'F.I.O',
+            'score' => 'Ball',
+            'status' => 'Status',
+            'starts_at' => 'Boshlangan sanasi',
+            'ends_at' => 'Tugatgan sanasi',
+        ]
+    ]
 ];

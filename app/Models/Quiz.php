@@ -21,4 +21,9 @@ class Quiz extends Model
         'ends_at',
         'content',
     ];
+
+    public function takes(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Take::class);
+    }
 }
