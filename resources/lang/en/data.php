@@ -111,6 +111,8 @@ Question 2'
     'excel' => [
         'header' => [
             'full_name' => 'F.I.O',
+            'correct_answers' => 'To\'g\'ri javoblar soni',
+            'incorrect_answers' => 'Noto\'g\'ri javoblar soni',
             'score' => 'Ball',
             'status' => 'Status',
             'starts_at' => 'Boshlangan sanasi',

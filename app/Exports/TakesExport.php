@@ -36,6 +36,7 @@ class TakesExport implements FromCollection, WithMapping, WithHeadings, ShouldAu
         return [
             $take->user->first_name . ' ' . $take->user->last_name,
             $take->correct_answers,
+            $this->calculateIncorrectCounts($take->correct_answers),
             $this->statuses[$take->status],
             $take->starts_at,
             $take->ends_at,
@@ -59,11 +60,17 @@ class TakesExport implements FromCollection, WithMapping, WithHeadings, ShouldAu
     {
         return [
             __('data.excel.header.full_name'),
-            __('data.excel.header.score'),
+            __('data.excel.header.correct_answers'),
+            __('data.excel.header.incorrect_answers'),
             __('data.excel.header.status'),
             __('data.excel.header.starts_at'),
             __('data.excel.header.ends_at'),
         ];
+    }
+
+    private function calculateIncorrectCounts($correct_answer_count)
+    {
+        return $this->quiz->count - $correct_answer_count;
     }
 
     private function handleQuery()
